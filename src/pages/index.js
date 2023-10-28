@@ -2,35 +2,32 @@ import { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { Fragment } from "react";
 import classes from "./index.module.css";
+import Link from "next/link";
 
 const App = () => {
-const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const [validName, setValidName] = useState(true);
   const [validPass, setValidPass] = useState(true);
- 
-console.log("hello")
 
   function submitHandler(event) {
     event.preventDefault();
-    setName("")
-    setPass("")
-    if(name === "" || pass === ""){
-      setValidName(false)
-      setValidPass(false)
+    setName("");
+    setPass("");
+    if (name === "" || pass === "") {
+      setValidName(false);
+      setValidPass(false);
       return;
     }
-    setValidName(true)
-    setValidPass(true)
+    setValidName(true);
+    setValidPass(true);
   }
   function nameChangeHandler(event) {
     setName(event.target.value);
-  
   }
   function passwordChangeHandler(event) {
     setPass(event.target.value);
   }
-
 
   return (
     <Fragment>
@@ -116,20 +113,23 @@ console.log("hello")
             </div>
 
             <div className={classes.btn2}>
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
-              >
-                <Button
-                  onClick={submitHandler}
-                  type="primary"
-                  htmlType="submit"
+              <Link href="/profile" passHref>
+                <Form.Item
+                  wrapperCol={{
+                    offset: 8,
+                    span: 16,
+                  }}
                 >
-                  Submit
-                </Button>
-              </Form.Item>
+                  <Button
+                    onClick={submitHandler}
+                    type="primary"
+                    htmlType="submit"
+                    component="a"
+                  >
+                    Submit
+                  </Button>
+                </Form.Item>
+              </Link>
             </div>
           </Form>
         </div>

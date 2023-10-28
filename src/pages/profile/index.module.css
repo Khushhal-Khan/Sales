@@ -1,0 +1,71 @@
+.body {
+  margin: 0;
+  padding: 0;
+}
+.sec {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.btn {
+  display: flex;
+  flex-direction: row;
+  
+  
+}
+.click{
+   display: flex;
+  
+   width: 81%;
+   justify-content: flex-end;
+   align-items: center;
+   gap: 0.5rem;
+}
+.form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.card{
+    width: 50%;
+    padding: 0rem;
+    
+    gap: 2rem;
+    line-height: 2rem;
+    margin-top: 2rem;
+}
+.input{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.label{
+ 
+    display: flex;
+    justify-content: space-between;
+    align-items:self-end;
+    gap: 1rem;
+}
+.div{
+   
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.div2{
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.input2{
+
+    display: flex;
+    justify-content: space-between;
+    align-items:self-end;
+    gap: 1rem;
+}
