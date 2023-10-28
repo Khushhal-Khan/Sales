@@ -8,6 +8,8 @@ const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const [validName, setValidName] = useState(true);
   const [validPass, setValidPass] = useState(true);
+ 
+console.log("hello")
 
   function submitHandler(event) {
     event.preventDefault();
