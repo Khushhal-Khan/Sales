@@ -3,30 +3,41 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { Fragment } from "react";
 import classes from "./index.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const App = () => {
-  const [name, setName] = useState("");
-  const [pass, setPass] = useState("");
+  const [name, setName] = useState({ name: "", pass: "" });
   const [validName, setValidName] = useState(true);
   const [validPass, setValidPass] = useState(true);
+  const router = useRouter();
 
   function submitHandler(event) {
     event.preventDefault();
-    setName("");
-    setPass("");
-    if (name === "" || pass === "") {
+    // setName("");
+    if (name.name === "" || name.pass === "") {
       setValidName(false);
       setValidPass(false);
       return;
     }
     setValidName(true);
     setValidPass(true);
+    if (validName === true && validPass === true) {
+      router.push("/account");
+    }
+    
   }
+
   function nameChangeHandler(event) {
-    setName(event.target.value);
+    setName((prevState) => {
+      return { ...prevState, name: event.target.value };
+    });
+    setValidName(true);
   }
   function passwordChangeHandler(event) {
-    setPass(event.target.value);
+    setName((prev) => {
+      return { ...prev, pass: event.target.value };
+    });
+    setValidPass(true);
   }
 
   return (
@@ -71,10 +82,10 @@ const App = () => {
                 <Input
                   placeholder="Enter Email Address"
                   onChange={nameChangeHandler}
-                  value={name}
+                  value={name.name}
                 />
                 {!validName && (
-                  <p style={{ color: "red" }}>Please enter valid Email</p>
+                  <p style={{ color: "red" }}>Please enter Email</p>
                 )}
               </Form.Item>
 
@@ -89,7 +100,7 @@ const App = () => {
                 <Input.Password
                   placeholder="Enter Password"
                   onChange={passwordChangeHandler}
-                  value={pass}
+                  value={name.pass}
                 />
                 {!validPass && (
                   <p style={{ color: "red" }}>Please enter password</p>
@@ -113,7 +124,7 @@ const App = () => {
             </div>
 
             <div className={classes.btn2}>
-              <Link href="/profile" passHref>
+             
                 <Form.Item
                   wrapperCol={{
                     offset: 8,
@@ -129,7 +140,7 @@ const App = () => {
                     Submit
                   </Button>
                 </Form.Item>
-              </Link>
+             
             </div>
           </Form>
         </div>

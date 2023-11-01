@@ -6,20 +6,19 @@ import Link from "next/link";
 import { Fragment } from "react";
 import classes from "./index.module.css";
 import { useRouter } from "next/router";
+import BankForm from "./BankForm";
 
 const index = () => {
   const [isDisabled, setIsDisabled] = useState(true);
-    const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const router = useRouter();
 
+  const bankInfo = (e) => {
+    if (e === "Bank") {
+      setShowForm(!showForm);
+    }
+  };
 
- const bankInfo = (e) => {
-  if(e === "Bank"){
-     setShowForm(!showForm);
-  }
- }
-
- 
   return (
     <Fragment>
       <div className={classes.btn}>
@@ -133,7 +132,7 @@ const index = () => {
             <Input
               disabled={isDisabled}
               style={{ width: "100%" }}
-              placeholder="address..."
+              placeholder="Email..."
               name="name"
               type="address"
             ></Input>
@@ -141,32 +140,7 @@ const index = () => {
         </div>
       </div>
 
-      {showForm && (
-        <div className={classes.bank}>
-          <div className={classes.card2}>
-            <div className={classes.input1}>
-              <label>Account Holder Name</label>
-              <label>Account Number</label>
-            </div>
-            <div className={classes.input2}>
-              <Input placeholder="Holder Name" />
-              <Input type="number" placeholder="Account Number" />
-            </div>
-            <div className={classes.input3}>
-              <label>Branch Name</label>
-              <label>Branch Code</label>
-            </div>
-            <div className={classes.input4}>
-              <Input placeholder="Branch Name" />
-              <Input placeholder="Branch Code" />
-            </div>
-            <div className={classes.lab2}>
-              <label>Branch's Contect Number</label>
-            </div>
-            <Input type="number" placeholder="Contact Number" />
-          </div>
-        </div>
-      )}
+      <BankForm showForm={showForm} />
     </Fragment>
   );
 };
