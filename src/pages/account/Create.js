@@ -7,10 +7,13 @@ import { Fragment } from "react";
 import classes from "./index.module.css";
 import { useRouter } from "next/router";
 import BankForm from "./BankForm";
+import Index from ".";
 
 const index = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [showTable, setShowTable] = useState(false);
+  const [name, setName] = useState("")
   const router = useRouter();
 
   const bankInfo = (e) => {
@@ -18,6 +21,10 @@ const index = () => {
       setShowForm(!showForm);
     }
   };
+
+  const nameHandlder = (e) => {
+    setName(e.target.value)
+  }
 
   return (
     <Fragment>
@@ -32,7 +39,9 @@ const index = () => {
           >
             {isDisabled ? "Edit" : "Cancel"}
           </Button>
-          <Button size={"large"}>Save</Button>
+          <Link href="/account">
+            <Button size={"large"}>Save</Button>
+          </Link>
         </div>
       </div>
 
@@ -56,6 +65,8 @@ const index = () => {
               style={{ width: "50%" }}
               placeholder="Name..."
               name="name"
+              onChange={nameHandlder}
+              value={name}
             ></Input>
             <Select
               style={{ width: "50%" }}

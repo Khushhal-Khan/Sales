@@ -1,19 +1,51 @@
-//import React from 'react'
-
+import React from 'react'
 import { Fragment } from "react"
 import { Button, Space, Table, Tag } from "antd";
 import { useRouter } from "next/router";
+
+
 const columns = [
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text) => <a>{text}</a>,
+    
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "Type",
+    dataIndex: "Type",
+    key: "Type",
+  },
+
+  {
+    title: "Acc_Holder",
+    dataIndex: "Acc_Holder",
+    key: "Acc_Holder",
+  },
+  {
+    title: "Acc_Num",
+    dataIndex: "Acc_Num",
+    key: "Acc_Num",
+  },
+  {
+    title: "Brach_Name",
+    dataIndex: "Brach_Name",
+    key: "Brach_Name",
+  },
+  {
+    title: "Branch_Code",
+    dataIndex: "Branch_Code",
+    key: "Branch_Code",
+  },
+  {
+    title: "Branch_Contact_Num",
+    dataIndex: "Branch_Contact_Num",
+    key: "Branch_Contact_Num",
+  },
+  {
+    title: "Contact_No",
+    dataIndex: "Contact_No",
+    key: "Contact_No",
   },
   {
     title: "Address",
@@ -21,31 +53,15 @@ const columns = [
     key: "address",
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: "Email",
+    dataIndex: "Email",
+    key: "Email",
   },
   {
     title: "Action",
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
         <a>Delete</a>
       </Space>
     ),
@@ -54,28 +70,21 @@ const columns = [
 const data = [
   {
     key: "1",
-    name: "John Brown",
-    age: 32,
+    name: "jhon",
+    Type: 32,
     address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
+    Acc_Holder: "John Brown",
+    Acc_Num: 3243,
+    Brach_Name: "abl",
+    Branch_Code: 32,
+    Branch_Contact_Num: 321,
+    Contact_No: 321,
+    Email: "abc@gmail.com",
   },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
+  
 ];
 
-const index = () => {
+const Index = (props) => {
 const router =  useRouter();
 const nextHandler = () => {
   router.push("/account/Create")
@@ -84,8 +93,9 @@ const nextHandler = () => {
     <Fragment>
       <Table columns={columns} dataSource={data} />
       <Button onClick={nextHandler}>next</Button>
+      <div>{props.Name} hello</div>
     </Fragment>
   );
 }
 
-export default index
+export default Index
