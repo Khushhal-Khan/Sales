@@ -1,20 +1,26 @@
-import { useState } from "react";
-import { Avatar, Divider, Space, Form, Input, Select, Card } from "antd";
+import { useState, Fragment } from "react";
+import { Avatar, Button, Space, Form, Input, Select, Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Button } from "antd";
 import Link from "next/link";
-import { Fragment } from "react";
 import classes from "./index.module.css";
 import { useRouter } from "next/router";
 import BankForm from "./BankForm";
 import Index from ".";
+import { useGlobalContext } from "./Context";
 
 const index = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [showTable, setShowTable] = useState(false);
-  const [name, setName] = useState("")
+  const {input, setInput} =  useGlobalContext()
   const router = useRouter();
+
+  const submitInput = (e) => {
+     e.preventDefault();
+      // setInput((prevName) => {
+      //   return { ...prevName, name: "" };
+      // });
+     router.push("/account")
+    } 
 
   const bankInfo = (e) => {
     if (e === "Bank") {
@@ -22,9 +28,33 @@ const index = () => {
     }
   };
 
-  const nameHandlder = (e) => {
-    setName(e.target.value)
-  }
+   const nameHandler = (e) => {
+     setInput((prevName) => {
+      return { ...prevName, name: e.target.value}
+     });
+   };
+   const contactHandler = (e) => {
+      setInput((prevNum) => {
+        return { ...prevNum, contact: e.target.value };
+      });
+   }
+   const addressHanler = (e) => {
+      setInput((prevadd) => {
+        return { ...prevadd, address: e.target.value };
+      });
+   }
+   const emailHandler = (e) => {
+      setInput((prevemail) => {
+        return { ...prevemail, email: e.target.value };
+      });
+   }
+  
+   const optHandler = (e) => {
+      setInput((prevopt) => {
+        return { ...prevopt, option: e };
+      });
+   }
+  
 
   return (
     <Fragment>
@@ -39,9 +69,9 @@ const index = () => {
           >
             {isDisabled ? "Edit" : "Cancel"}
           </Button>
-          <Link href="/account">
-            <Button size={"large"}>Save</Button>
-          </Link>
+          <Button onClick={submitInput} size={"large"}>
+            Save
+          </Button>
         </div>
       </div>
 
@@ -65,17 +95,19 @@ const index = () => {
               style={{ width: "50%" }}
               placeholder="Name..."
               name="name"
-              onChange={nameHandlder}
-              value={name}
+              onChange={nameHandler}
+              value={input.name}
             ></Input>
             <Select
               style={{ width: "50%" }}
               disabled={isDisabled}
               showSearch
-              placeholder="Select a Type"
               optionFilterProp="children"
               filterOption={filterOption}
+              placeholder="Select a Type"
               onSelect={bankInfo}
+              onChange={optHandler}
+              value={input.option}
               options={[
                 {
                   value: "Parties",
@@ -124,6 +156,8 @@ const index = () => {
             <div className={classes.input2}>
               <Input
                 disabled={isDisabled}
+                onChange={contactHandler}
+                value={input.contact}
                 style={{ width: "50%" }}
                 placeholder="contact no..."
                 name="number"
@@ -131,9 +165,11 @@ const index = () => {
               ></Input>
               <Input
                 disabled={isDisabled}
+                onChange={addressHanler}
+                value={input.address}
                 style={{ width: "50%" }}
                 placeholder="address..."
-                name="name"
+                name="address"
                 type="address"
               ></Input>
             </div>
@@ -142,6 +178,8 @@ const index = () => {
             </div>
             <Input
               disabled={isDisabled}
+              onChange={emailHandler}
+              value={input.email}
               style={{ width: "100%" }}
               placeholder="Email..."
               name="name"

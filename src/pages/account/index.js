@@ -1,15 +1,14 @@
-import React from 'react'
-import { Fragment } from "react"
+import React from "react";
+import { Fragment } from "react";
 import { Button, Space, Table, Tag } from "antd";
 import { useRouter } from "next/router";
-
+import { useGlobalContext } from "./Context";
 
 const columns = [
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
-    
   },
   {
     title: "Type",
@@ -81,21 +80,36 @@ const data = [
     Contact_No: 321,
     Email: "abc@gmail.com",
   },
-  
 ];
 
 const Index = (props) => {
-const router =  useRouter();
-const nextHandler = () => {
-  router.push("/account/Create")
-}
+  const { input, setInput } = useGlobalContext();
+  const router = useRouter();
+  const nextHandler = () => {
+    setInput((prevName, prevNum, prevadd, prevemail, prevopt) => {
+      return (
+        { ...prevName, name: "" },
+        { ...prevNum, contact: "" },
+        { ...prevadd, address: "" },
+        { ...prevemail, email: "" },
+        { ...prevopt, option: "" }
+      );
+    });
+
+    router.push("/account/Create");
+  };
   return (
     <Fragment>
       <Table columns={columns} dataSource={data} />
       <Button onClick={nextHandler}>next</Button>
-      <div>{props.Name} hello</div>
+      <div>
+        {input.name} {input.contact} {input.address} {input.email}
+        {input.option} {input.holder} {input.acc} {input.branch} {input.code}
+        {input.branchNum}
+        hello
+      </div>
     </Fragment>
   );
-}
+};
 
-export default Index
+export default Index;

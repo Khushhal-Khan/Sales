@@ -7,21 +7,29 @@ import { useRouter } from "next/router";
 
 const App = () => {
   const [name, setName] = useState({ name: "", pass: "" });
-  const [validName, setValidName] = useState(true);
-  const [validPass, setValidPass] = useState(true);
+  const [validInput, setValidInput] = useState({ name: true, pass: true});
+  
   const router = useRouter();
 
   function submitHandler(event) {
     event.preventDefault();
     // setName("");
     if (name.name === "" || name.pass === "") {
-      setValidName(false);
-      setValidPass(false);
+      setValidInput((prevName) => {
+        return { ...prevName, name: false };
+      })
+      setValidInput((prevPass) => {
+        return { ...prevPass, pass: false };
+      });
       return;
     }
-    setValidName(true);
-    setValidPass(true);
-    if (validName === true && validPass === true) {
+    setValidInput((prevName) => {
+      return { ...prevName, name: true };
+    });
+    setValidInput((prevPass) => {
+      return { ...prevPass, pass: true };
+    });
+    if (validInput.name === true && validInput.pass === true) {
       router.push("/account");
     }
     
@@ -31,13 +39,17 @@ const App = () => {
     setName((prevState) => {
       return { ...prevState, name: event.target.value };
     });
-    setValidName(true);
+    setValidInput((prevName) => {
+      return { ...prevName, name: true };
+    });
   }
   function passwordChangeHandler(event) {
     setName((prev) => {
       return { ...prev, pass: event.target.value };
     });
-    setValidPass(true);
+    setValidInput((prevPass) => {
+      return { ...prevPass, pass: true };
+    });
   }
 
   return (
@@ -84,7 +96,7 @@ const App = () => {
                   onChange={nameChangeHandler}
                   value={name.name}
                 />
-                {!validName && (
+                {!validInput.name && (
                   <p style={{ color: "red" }}>Please enter Email</p>
                 )}
               </Form.Item>
@@ -102,7 +114,7 @@ const App = () => {
                   onChange={passwordChangeHandler}
                   value={name.pass}
                 />
-                {!validPass && (
+                {!validInput.pass && (
                   <p style={{ color: "red" }}>Please enter password</p>
                 )}
               </Form.Item>
