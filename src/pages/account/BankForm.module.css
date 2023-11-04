@@ -1,0 +1,51 @@
+
+.bank{
+ display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1rem;
+}
+.input1{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.input2{
+     display: flex;
+    justify-content: space-between;
+    align-items:self-end;
+    gap: 1rem;
+}
+.input4{
+     display: flex;
+    justify-content: space-between;
+    align-items:self-end;
+    gap: 1rem;
+}
+.input3{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card2{
+     width: 50%;
+    padding: 0rem;
+    gap: 2rem;
+    line-height: 2rem;
+    margin-top: 2rem;
+}.lab2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center ;
+    margin-left: 1rem;
+ 
+}
+.place{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

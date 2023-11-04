@@ -2,33 +2,55 @@ import { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { Fragment } from "react";
 import classes from "./index.module.css";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const App = () => {
-const [name, setName] = useState("");
-  const [pass, setPass] = useState("");
-  const [validName, setValidName] = useState(true);
-  const [validPass, setValidPass] = useState(true);
+  const [name, setName] = useState({ name: "", pass: "" });
+  const [validInput, setValidInput] = useState({ name: true, pass: true});
+  
+  const router = useRouter();
 
   function submitHandler(event) {
     event.preventDefault();
-    setName("")
-    setPass("")
-    if(name === "" || pass === ""){
-      setValidName(false)
-      setValidPass(false)
+    // setName("");
+    if (name.name === "" || name.pass === "") {
+      setValidInput((prevName) => {
+        return { ...prevName, name: false };
+      })
+      setValidInput((prevPass) => {
+        return { ...prevPass, pass: false };
+      });
       return;
     }
-    setValidName(true)
-    setValidPass(true)
-  }
-  function nameChangeHandler(event) {
-    setName(event.target.value);
-  
-  }
-  function passwordChangeHandler(event) {
-    setPass(event.target.value);
+    setValidInput((prevName) => {
+      return { ...prevName, name: true };
+    });
+    setValidInput((prevPass) => {
+      return { ...prevPass, pass: true };
+    });
+    if (validInput.name === true && validInput.pass === true) {
+      router.push("/account");
+    }
+    
   }
 
+  function nameChangeHandler(event) {
+    setName((prevState) => {
+      return { ...prevState, name: event.target.value };
+    });
+    setValidInput((prevName) => {
+      return { ...prevName, name: true };
+    });
+  }
+  function passwordChangeHandler(event) {
+    setName((prev) => {
+      return { ...prev, pass: event.target.value };
+    });
+    setValidInput((prevPass) => {
+      return { ...prevPass, pass: true };
+    });
+  }
 
   return (
     <Fragment>
@@ -72,10 +94,10 @@ const [name, setName] = useState("");
                 <Input
                   placeholder="Enter Email Address"
                   onChange={nameChangeHandler}
-                  value={name}
+                  value={name.name}
                 />
-                {!validName && (
-                  <p style={{ color: "red" }}>Please enter valid Email</p>
+                {!validInput.name && (
+                  <p style={{ color: "red" }}>Please enter Email</p>
                 )}
               </Form.Item>
 
@@ -90,9 +112,9 @@ const [name, setName] = useState("");
                 <Input.Password
                   placeholder="Enter Password"
                   onChange={passwordChangeHandler}
-                  value={pass}
+                  value={name.pass}
                 />
-                {!validPass && (
+                {!validInput.pass && (
                   <p style={{ color: "red" }}>Please enter password</p>
                 )}
               </Form.Item>
@@ -114,20 +136,23 @@ const [name, setName] = useState("");
             </div>
 
             <div className={classes.btn2}>
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
-              >
-                <Button
-                  onClick={submitHandler}
-                  type="primary"
-                  htmlType="submit"
+             
+                <Form.Item
+                  wrapperCol={{
+                    offset: 8,
+                    span: 16,
+                  }}
                 >
-                  Submit
-                </Button>
-              </Form.Item>
+                  <Button
+                    onClick={submitHandler}
+                    type="primary"
+                    htmlType="submit"
+                    component="a"
+                  >
+                    Submit
+                  </Button>
+                </Form.Item>
+             
             </div>
           </Form>
         </div>
