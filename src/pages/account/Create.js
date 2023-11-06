@@ -2,7 +2,7 @@ import { useState, Fragment } from "react";
 import { Avatar, Button, Space, Form, Input, Select, Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import classes from "./index.module.css";
+import classes from "./Create.module.css";
 import { useRouter } from "next/router";
 import BankForm from "./BankForm";
 import Index from ".";
